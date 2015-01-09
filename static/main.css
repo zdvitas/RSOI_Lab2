@@ -1,0 +1,96 @@
+#devices {
+    text-align: center;
+    margin-top: 60px;
+}
+
+#devices .deviceWrap {
+    width: 100%;
+    background-position: top center;
+    background-repeat: no-repeat;
+    margin: 60px 0 20px 0px;
+    min-width: 1024px;
+}
+
+#devices .device {
+    margin: 0 auto;
+    position: relative;
+    text-align: left;
+}
+
+#devices .device .flashingTop,
+#devices .device .flashingBottom {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+#devices .device .flashingTop {
+    top: 0;
+    padding-top: 1px;
+}
+
+#devices .device .flashingBottom {
+    bottom: 0;
+}
+
+#devices iframe {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border: 1px solid #d1d1d1;
+}
+
+
+/*
+ * Devices
+ */
+
+
+.kindle-landscape {
+    background-image: url(/static/images/kindle-landscape.png);
+    padding: 98px 0 96px 0;
+}
+
+span.time {
+    font-family: helvetica, arial, sans-serif;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.kindle-landscape .time, .kindle-portrait .time {
+    font-size: 14px;
+    top: 9px;
+    position: relative;
+}
+
+.kindle-landscape .time span, .kindle-portrait .time span {
+    font-size: 11px;
+}
+
+.labels {
+    padding-top: 5px;
+    float: left;
+    font-size: 16px;
+}
+
+.td_text {
+    margin-top: 10px;
+}
+
+td
+{
+    font-size: 20px;
+}
+
+.btn_order {
+    float : right;
+}
+
+.top-btns
+{
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
