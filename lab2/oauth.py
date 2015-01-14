@@ -51,11 +51,12 @@ def check_login(post):
 
 def auth(request):
 
-    if not ('client_id' in request.GET and "redirect_url" in request.GET):
+    if not ('client_id' in request.GET and "redirect_url" in request.GET and "state" in request.GET):
         return HttpResponse(make_json_error("Missing parameters"))
 
     redirect_url = request.GET["redirect_url"]
     client_id = request.GET["client_id"]
+    state = request.GET["state"]
 
     if not test_client_id(client_id):
         return HttpResponse(make_json_error("Invalid client_id"))
@@ -65,7 +66,7 @@ def auth(request):
         if user is not None:
 
             code = make_code(client_id, redirect_url, user)
-            params = urllib.urlencode({'client_id': client_id, 'code': code})
+            params = urllib.urlencode({'client_id': client_id, 'code': code, 'state': state})
             return redirect(redirect_url + "?" + params)
 
     return render(request, "main.html")
@@ -105,7 +106,7 @@ def access_token(request):
         return HttpResponse(make_json_error("Invalid query!"))
 
     token = make_access_token(client_id, user)
-    return redirect(redirect_url+str(token))
+    return HttpResponse(str(token))
 
 
 def test_refresh(client_id, secret, refresh):
@@ -139,4 +140,4 @@ def refresh_token(request):
         return HttpResponse(make_json_error("Invalid query!"))
 
     token = make_access_token(client_id, user)
-    return redirect(redirect_url+str(token))
+    return HttpResponse(str(token))

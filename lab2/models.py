@@ -28,9 +28,9 @@ class OAuthTokens(models.Model):
     refresh_token = models.CharField(max_length=40)
 
     def __str__(self):
-        # return json.dumps({"access_token": self.token, "expired": 86400, "refresh_token": self.refresh_token,
-        #         "user_id": self.user.id})
-        return "?access_token="+self.token+"&exired=86400&user_id="+str(self.user_id)+"&refresh_token=%s" % self.token
+        return json.dumps({"access_token": self.token, "expired": 86400, "refresh_token": self.refresh_token,
+                "user_id": self.user.id})
+        # return "?access_token="+self.token+"&exired=86400&user_id="+str(self.user_id)+"&refresh_token=%s" % self.token
 
 
 class OAuthCode(models.Model):
