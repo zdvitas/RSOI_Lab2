@@ -2,11 +2,14 @@
 # coding: utf-8
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
-
+from datetime import datetime
+import json
 
 @python_2_unicode_compatible
 class Person(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    login = models.CharField(max_length=10, unique=True)
+    password = models.CharField(max_length=20, unique=True)
 
     def __str__(self):
         return self.name
@@ -15,17 +18,25 @@ class Person(models.Model):
 class OAuthApplications(models.Model):
     name = models.CharField(max_length=50)
     secret_id = models.CharField(max_length=10)
-    client_id = models.CharField(max_length=10)
 
 
 class OAuthTokens(models.Model):
-    user = models.ForeignKey(Person)
-    token = models.CharField(max_length=20)
+    client = models.ForeignKey(OAuthApplications)
+    token = models.CharField(max_length=40)
     expired = models.DateTimeField()
+    user = models.ForeignKey(Person)
+    refresh_token = models.CharField(max_length=40)
+
+    def __str__(self):
+        # return json.dumps({"access_token": self.token, "expired": 86400, "refresh_token": self.refresh_token,
+        #         "user_id": self.user.id})
+        return "?access_token="+self.token+"&exired=86400&user_id="+str(self.user_id)+"&refresh_token=%s" % self.token
+
 
 class OAuthCode(models.Model):
-    code = models.CharField(max_length=20)
+    code = models.CharField(max_length=255)
     url = models.CharField(max_length=255)
+    client = models.ForeignKey(OAuthApplications)
     user = models.ForeignKey(Person)
 
 
@@ -55,7 +66,14 @@ class Computer(models.Model):
     programs = models.ManyToManyField(Program)
 
     def __str__(self):
-        return self.name + "||" + self.owner.name + "||" + str(self.year)
+        dic = self.__dict__
+        # try:
+        #     # dic.pop("_state", None)
+        # except:
+        #     i = 10
+
+        return json.dumps(dic)
+
 
 
 

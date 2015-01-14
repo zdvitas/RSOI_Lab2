@@ -20,7 +20,8 @@
 
 <body>
    <div style="text-align: center">
-       <form action="/auth" method="post">
+       <form action="" method="post">
+           {% csrf_token %}
            <label>Login</label>
            <input name="login" type="text">
            <label>Password</label>
